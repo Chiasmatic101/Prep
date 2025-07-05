@@ -7,10 +7,11 @@ export default function ChronotypeQuizPage() {
   const [formData, setFormData] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
-  const handleChange = (e) => {
-    const { name, value } = e.target
-    setFormData((prev) => ({ ...prev, [name]: value }))
-  }
+const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const { name, value } = e.target
+  setFormData((prev) => ({ ...prev, [name]: value }))
+}
+
 
   const handleSubmit = (e) => {
     e.preventDefault()
