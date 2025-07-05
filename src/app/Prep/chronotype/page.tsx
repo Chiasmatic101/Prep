@@ -7,19 +7,18 @@ export default function ChronotypeQuizPage() {
   const [formData, setFormData] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
-const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
   const { name, value } = e.target
   setFormData((prev) => ({ ...prev, [name]: value }))
 }
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     console.log('Quiz submitted:', formData)
     setSubmitted(true)
   }
 
-  const Question = ({ label, name, options }) => (
+  const Question = ({ label, name, options }: { label: string; name: string; options: string[] }) => (
     <div className="mb-6">
       <fieldset className="space-y-2">
         <legend className="block text-lg font-medium mb-2 text-gray-800">{label}</legend>
@@ -49,7 +48,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
           className="text-center bg-white p-10 rounded-2xl shadow-xl max-w-xl"
         >
           <h2 className="text-3xl font-bold text-purple-700 mb-4">Thanks for submitting!</h2>
-          <p className="text-gray-700">We’ll use this info to help you discover your best study rhythm. Stay tuned! 🌟</p>
+          <p className="text-gray-700">We'll use this info to help you discover your best study rhythm. Stay tuned! 🌟</p>
         </motion.div>
       </main>
     )
@@ -64,7 +63,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          🧠 What’s Your Brain’s Rhythm?
+          🧠 What's Your Brain's Rhythm?
         </motion.h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <Question
@@ -98,7 +97,7 @@ const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
             options={['AoPS', 'RSM', 'Kumon', 'Other', 'None']}
           />
           <Question
-            label="If you didn’t have school, what time would you naturally wake up?"
+            label="If you didn't have school, what time would you naturally wake up?"
             name="naturalWake"
             options={['Before 8 AM', '8–10 AM', 'After 10 AM']}
           />
