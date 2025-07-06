@@ -16,6 +16,15 @@ import ongAnimation from '@/lotties/Pong_1.json'
 import learningAnimation from '@/lotties/learning.json'
 import memoryAnimation from '@/lotties/memory.json'
 
+// Add this type definition near the top of your file
+interface InsightProps {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}
+
+
+
 export default function PrepLandingPage() {
   const router = useRouter()
   const [currentHour, setCurrentHour] = useState(6)
@@ -50,6 +59,8 @@ export default function PrepLandingPage() {
     40, 35, 30, 35, 45, 55, 70, 85, 90, 85, 80, 75,
     70, 60, 50, 45, 55, 70, 80, 75, 65, 55, 50, 45
   ], [])
+
+
 
   const computed = useMemo(() => {
     const val = learningData[currentHour]
@@ -240,10 +251,11 @@ export default function PrepLandingPage() {
   )
 }
 
-const Insight = ({ icon, title, desc }) => (
+// Then update your Insight component to use the typed props
+const Insight = ({ icon, title, desc }: InsightProps) => (
   <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40 hover:bg-white/40 transition-transform transform hover:scale-105">
     <div className="text-2xl mb-2">{icon}</div>
     <h3 className="font-semibold text-lg mb-2 text-gray-800">{title}</h3>
-    <p className="text-gray-700 text-sm">{desc}</p>
+    <p className="text-gray-600">{desc}</p>
   </div>
 )
