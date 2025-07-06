@@ -12,7 +12,7 @@ import lifestyleAnimation from '@/lotties/lifestyle.json'
 import athleteAnimation from '@/lotties/athlete.json'
 
 import sunAnimation from '@/lotties/sun.json'
-import ongAnimation from '@/lotties/Pong_1.json'
+import pongAnimation from '@/lotties/Pong_1.json'
 import learningAnimation from '@/lotties/learning.json'
 import memoryAnimation from '@/lotties/memory.json'
 
@@ -28,6 +28,14 @@ interface HelpSection {
   text: string
   animation: any
 }
+
+const Insight: React.FC<InsightProps> = ({ icon, title, desc }) => (
+  <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40 hover:bg-white/40 transition-transform transform hover:scale-105">
+    <div className="text-2xl mb-2">{icon}</div>
+    <h3 className="font-semibold text-lg mb-2 text-gray-800">{title}</h3>
+    <p className="text-gray-700 text-sm">{desc}</p>
+  </div>
+)
 
 export default function PrepLandingPage() {
   const router = useRouter()
@@ -101,7 +109,7 @@ export default function PrepLandingPage() {
       title: 'Measure Your Mind (the Fun Way)',
       color: 'from-pink-100 to-purple-100',
       text: `Prep uses short, clinically validated games that test your memory, focus, and thinking speed. These aren't just any games—they're based on the same tests used in neuroscience labs.`,
-      animation: ongAnimation,
+      animation: pongAnimation,
     },
     {
       title: 'Match Lifestyle to Learning',
@@ -226,19 +234,21 @@ export default function PrepLandingPage() {
       {/* How Prep Can Help */}
       <section className="bg-white py-20 px-6 text-center">
         <h2 className="text-[2.5rem] leading-[2.75rem] font-bold text-purple-700 mb-10">🌟 How Prep Can Help</h2>
-        {helpSections.map((section, i) => (
-          <section key={i} className={`bg-gradient-to-br ${section.color} py-20 px-6`}>
-            <div className={`max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-              <div className="md:w-1/2 h-80 rounded-[2rem] shadow-lg flex items-center justify-center bg-white/20 backdrop-blur-sm">
-                <Lottie animationData={section.animation} loop className="w-full h-full max-w-sm" />
-              </div>
-              <div className="md:w-1/2">
-                <h2 className="text-[1.75rem] leading-[2rem] font-bold text-gray-900 mb-4">{section.title}</h2>
-                <p className="text-[1.25rem] leading-[1.75rem] text-gray-700">{section.text}</p>
+        <div className="space-y-0">
+          {helpSections.map((section, i) => (
+            <div key={i} className={`bg-gradient-to-br ${section.color} py-20 px-6`}>
+              <div className={`max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+                <div className="md:w-1/2 h-80 rounded-[2rem] shadow-lg flex items-center justify-center bg-white/20 backdrop-blur-sm">
+                  <Lottie animationData={section.animation} loop className="w-full h-full max-w-sm" />
+                </div>
+                <div className="md:w-1/2">
+                  <h3 className="text-[1.75rem] leading-[2rem] font-bold text-gray-900 mb-4">{section.title}</h3>
+                  <p className="text-[1.25rem] leading-[1.75rem] text-gray-700">{section.text}</p>
+                </div>
               </div>
             </div>
-          </section>
-        ))}
+          ))}
+        </div>
       </section>
 
       {/* Footer */}
@@ -252,11 +262,3 @@ export default function PrepLandingPage() {
     </main>
   )
 }
-
-const Insight: React.FC<InsightProps> = ({ icon, title, desc }) => (
-  <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40 hover:bg-white/40 transition-transform transform hover:scale-105">
-    <div className="text-2xl mb-2">{icon}</div>
-    <h3 className="font-semibold text-lg mb-2 text-gray-800">{title}</h3>
-    <p className="text-gray-700 text-sm">{desc}</p>
-  </div>
-)
