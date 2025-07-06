@@ -12,43 +12,31 @@ import lifestyleAnimation from '@/lotties/lifestyle.json'
 import athleteAnimation from '@/lotties/athlete.json'
 
 import sunAnimation from '@/lotties/sun.json'
-import pongAnimation from '@/lotties/Pong_1.json'
+import ongAnimation from '@/lotties/Pong_1.json'
 import learningAnimation from '@/lotties/learning.json'
 import memoryAnimation from '@/lotties/memory.json'
 
+// Add this type definition near the top of your file
 interface InsightProps {
-  icon: string
-  title: string
-  desc: string
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
 }
 
-interface HelpSection {
-  title: string
-  color: string
-  text: string
-  animation: any
-}
 
-const Insight: React.FC<InsightProps> = ({ icon, title, desc }) => (
-  <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40 hover:bg-white/40 transition-transform transform hover:scale-105">
-    <div className="text-2xl mb-2">{icon}</div>
-    <h3 className="font-semibold text-lg mb-2 text-gray-800">{title}</h3>
-    <p className="text-gray-700 text-sm">{desc}</p>
-  </div>
-)
 
 export default function PrepLandingPage() {
   const router = useRouter()
-  const [currentHour, setCurrentHour] = useState<number>(6)
-  const [isPlaying, setIsPlaying] = useState<boolean>(false)
-  const [mounted, setMounted] = useState<boolean>(false)
+  const [currentHour, setCurrentHour] = useState(6)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [mounted, setMounted] = useState(false)
 
   const scrollToSection = useCallback((id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
   }, [])
 
   const navigateToChronotype = useCallback(() => {
-    router.push('/Prep/Registration')
+    router.push('/Prep/chronotype')
   }, [router])
 
   useEffect(() => setMounted(true), [])
@@ -71,6 +59,8 @@ export default function PrepLandingPage() {
     40, 35, 30, 35, 45, 55, 70, 85, 90, 85, 80, 75,
     70, 60, 50, 45, 55, 70, 80, 75, 65, 55, 50, 45
   ], [])
+
+
 
   const computed = useMemo(() => {
     const val = learningData[currentHour]
@@ -98,23 +88,23 @@ export default function PrepLandingPage() {
     }
   }, [currentHour, learningData])
 
-  const helpSections: HelpSection[] = [
+  const helpSections = [
     {
       title: 'Understand Your Chronotype',
       color: 'from-yellow-50 to-pink-100',
       text: `Your natural rhythm—called your chronotype—is influenced by your sleep, activity, and diet habits. We help you figure out whether you're a morning, evening, or somewhere-in-between type.`,
-      animation: chronotypeAnimation,
+      animation: sunAnimation,
     },
     {
       title: 'Measure Your Mind (the Fun Way)',
       color: 'from-pink-100 to-purple-100',
-      text: `Prep uses short, clinically validated games that test your memory, focus, and thinking speed. These aren't just any games—they're based on the same tests used in neuroscience labs.`,
-      animation: pongAnimation,
+      text: `Prep uses short, clinically validated games that test your memory, focus, and thinking speed. These aren’t just any games—they’re based on the same tests used in neuroscience labs.`,
+      animation: ongAnimation,
     },
     {
       title: 'Match Lifestyle to Learning',
       color: 'from-purple-100 to-blue-100',
-      text: `Once we know your brain's rhythm and cognitive strengths, we suggest simple changes—adjusting sleep, improving your environment, timing meals—to help you peak when it matters most.`,
+      text: `Once we know your brain’s rhythm and cognitive strengths, we suggest simple changes—adjusting sleep, improving your environment, timing meals—to help you peak when it matters most.`,
       animation: learningAnimation,
     },
     {
@@ -234,21 +224,19 @@ export default function PrepLandingPage() {
       {/* How Prep Can Help */}
       <section className="bg-white py-20 px-6 text-center">
         <h2 className="text-[2.5rem] leading-[2.75rem] font-bold text-purple-700 mb-10">🌟 How Prep Can Help</h2>
-        <div className="space-y-0">
-          {helpSections.map((section, i) => (
-            <div key={i} className={`bg-gradient-to-br ${section.color} py-20 px-6`}>
-              <div className={`max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
-                <div className="md:w-1/2 h-80 rounded-[2rem] shadow-lg flex items-center justify-center bg-white/20 backdrop-blur-sm">
-                  <Lottie animationData={section.animation} loop className="w-full h-full max-w-sm" />
-                </div>
-                <div className="md:w-1/2">
-                  <h3 className="text-[1.75rem] leading-[2rem] font-bold text-gray-900 mb-4">{section.title}</h3>
-                  <p className="text-[1.25rem] leading-[1.75rem] text-gray-700">{section.text}</p>
-                </div>
+        {helpSections.map((section, i) => (
+          <section key={i} className={`bg-gradient-to-br ${section.color} py-20 px-6`}>
+            <div className={`max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-12 ${i % 2 === 1 ? 'md:flex-row-reverse' : ''}`}>
+              <div className="md:w-1/2 h-80 rounded-[2rem] shadow-lg flex items-center justify-center bg-white/20 backdrop-blur-sm">
+                <Lottie animationData={section.animation} loop className="w-full h-full max-w-sm" />
+              </div>
+              <div className="md:w-1/2">
+                <h2 className="text-[1.75rem] leading-[2rem] font-bold text-gray-900 mb-4">{section.title}</h2>
+                <p className="text-[1.25rem] leading-[1.75rem] text-gray-700">{section.text}</p>
               </div>
             </div>
-          ))}
-        </div>
+          </section>
+        ))}
       </section>
 
       {/* Footer */}
@@ -262,3 +250,12 @@ export default function PrepLandingPage() {
     </main>
   )
 }
+
+// Then update your Insight component to use the typed props
+const Insight = ({ icon, title, desc }: InsightProps) => (
+  <div className="bg-white/30 backdrop-blur-sm rounded-xl p-6 border border-white/40 hover:bg-white/40 transition-transform transform hover:scale-105">
+    <div className="text-2xl mb-2">{icon}</div>
+    <h3 className="font-semibold text-lg mb-2 text-gray-800">{title}</h3>
+    <p className="text-gray-600">{desc}</p>
+  </div>
+)
